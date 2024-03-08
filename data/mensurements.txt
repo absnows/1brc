@@ -1,0 +1,4 @@
+Ruston;-75.210000
+Leninskoe;-82.660000
+Cambuci;-4.970000
+Kayunga;54.400000
