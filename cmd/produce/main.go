@@ -1,25 +1,20 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"log"
 	"math"
 	"math/rand/v2"
 	"os"
-	"strconv"
 	"strings"
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		panic("Should informe size of file")
-	}
-
-	l, err := strconv.Atoi(os.Args[1])
-	if err != nil {
-		panic("Invalid size. Must be a number 0 to 1BI")
-	}
+	size := flag.Int("s", 10, "Size of file")
+	output := flag.String("o", "mensurement", "File output name")
+	flag.Parse()
 
 	file, err := os.OpenFile("./data/weather_stations.csv", os.O_RDWR, 0600)
 	if err != nil {
@@ -35,12 +30,12 @@ func main() {
 
 	stations := strings.Split(string(rb), "\n")
 
-	generateFile(l, stations)
+	generateFile(*size, stations, *output)
 
 }
 
-func generateFile(size int, stations []string) {
-	f, err := os.Create("./data/mensurements.txt")
+func generateFile(size int, stations []string, out string) {
+	f, err := os.Create("./data/" + out + ".txt")
 	if err != nil {
 		log.Fatal(err)
 		return
